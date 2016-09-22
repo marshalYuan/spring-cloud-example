@@ -1,0 +1,13 @@
+server:
+  port: ${PORT:8041}
+spring:
+  application:
+    name: node-sidecar
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8021/eureka/}
+sidecar:
+  port: 3000
+  home-page-uri: http://localhost:${sidecar.port}/
+  health-uri: http://localhost:${sidecar.port}/health
