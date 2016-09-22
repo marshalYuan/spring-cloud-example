@@ -10,3 +10,8 @@ buildNumber.properties
 .mvn
 .idea
 .iml
+
+.vscode
+.project
+.settings
+.classpath
