@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.codedocker.springcloud</groupId>
-	<artifactId>nodeSidecar</artifactId>
+	<artifactId>node-sidecar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -13,8 +13,8 @@
 
 	<parent>
 		<groupId>com.codedocker.springcloud</groupId>
-  		<artifactId>spring-cloud-example</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+		<artifactId>spring-cloud-example</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>

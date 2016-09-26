@@ -9,7 +9,7 @@ buildNumber.properties
 
 .mvn
 .idea
-.iml
+*.iml
 
 .vscode
 .project
