@@ -1,12 +1,15 @@
 server:
-  port: 8021
+  port: 8700
 spring:
   application:
     name: eureka-server
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8021/eureka/
-    instance:
-      metadataMap:
-        instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    hostname: localhost

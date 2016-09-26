@@ -12,10 +12,9 @@
 	<description>Demo project for Spring Cloud Sidecar</description>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.codedocker.springcloud</groupId>
+  		<artifactId>spring-cloud-example</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<properties>
