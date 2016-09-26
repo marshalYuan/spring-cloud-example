@@ -3,4 +3,7 @@ spring:
     name: user-service
   cloud:
     config:
-      uri: ${CONFIG_SERVER_URL:http://localhosst:8720}
+      uri: ${CONFIG_SERVER_URL:http://localhosst:8710}
+      discovery:
+        enabled: true
+        serviceId: user-service
