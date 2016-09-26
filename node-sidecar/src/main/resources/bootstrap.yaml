@@ -5,7 +5,7 @@ spring:
     name: node-sidecar
   cloud:
     config:
-      uri: ${CONFIG_SERVER_URL:http://localhosst:8710}
+      uri: ${CONFIG_SERVER_URL:http://localhost:8710}
       discovery:
         enabled: true
         serviceId: node-sidecar

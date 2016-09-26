@@ -7,9 +7,13 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/marshalYuan/spring-cloud-example
-          search-paths: config-repo
+          uri: https://github.com/marshalYuan/spring-cloud-example/
+          searchPaths: config-repo
+          username:
+          password:
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8700/eureka/
+    fetchRegistry: true
+    registerWithEureka: true
