@@ -1,12 +1,12 @@
 server:
-  port: ${PORT:8041}
+  port: ${PORT:8741}
 spring:
   application:
     name: node-sidecar
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8021/eureka/}
+      defaultZone: ${EUREKA_SERVICE_URL:http://localhost:8700/eureka/}
 sidecar:
   port: 3000
   home-page-uri: http://localhost:${sidecar.port}/

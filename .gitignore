@@ -15,3 +15,7 @@ buildNumber.properties
 .project
 .settings
 .classpath
+
+# node
+node_modules
+npm-debug.log
