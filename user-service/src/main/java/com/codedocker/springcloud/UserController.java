@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -19,6 +20,10 @@ public class UserController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
+
+    @Autowired
+    private  BookFeignClient bookFeignClient;
+
     private HashMap<Long, User> users;
 
     public UserController() {
@@ -48,6 +53,21 @@ public class UserController {
         return user;
     }
 
+    @GetMapping("/author/{id}")
+    public Author getMyBooks(@PathVariable Long id) {
+        List<Book> books = bookFeignClient.findByUid(id);
+        User user = users.get(id);
+        Author author = new Author();
+        if (user == null) {
+            return author;
+        }
+        author.setId(user.getId());
+        author.setUsername(user.getUsername());
+        author.setAge(user.getAge());
+        author.setBooks(books);
+        return author;
+    }
+
     /**
      * 本地服务实例的信息
      * @return
@@ -59,32 +79,3 @@ public class UserController {
     }
 }
 
-class User {
-    private Long id;
-    private String username;
-    private Integer age;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-}

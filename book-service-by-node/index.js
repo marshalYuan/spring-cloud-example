@@ -1,5 +1,6 @@
 const express = require('express')
 const faker = require('faker/locale/zh_CN')
+const logger = require('morgan')
 const services = require('./service')
 
 const app = express()
@@ -20,6 +21,8 @@ while (count > 0) {
     count --
 }
 
+app.use(logger('dev'))
+
 app.get('/health', (req, res) => {
     res.json({
         status: 'UP'
@@ -34,7 +37,7 @@ app.get('/book/:id', (req, res, next) => {
     res.json(books[id])
 })
 
-app.get('/book/:bookId/author', (req, res) => {
+app.get('/book/:bookId/author', (req, res, next) => {
     const bookId = parseInt(req.params.bookId)
     if(isNaN(bookId)){
         next()
@@ -50,6 +53,17 @@ app.get('/book/:bookId/author', (req, res) => {
             }
         }).catch((error)=> next(error))
     }
+})
+
+app.get('/books', (req, res) => {
+    const uid = req.query.uid
+    res.json(books.filter((book)=>book.authorId == uid))
+})
+
+app.use((error, req, res, next) => {
+    const status = 500 || error.status; 
+    res.status(status)
+    res.json({status, message: 'service error'})
 })
 
 
