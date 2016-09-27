@@ -12,8 +12,6 @@ import org.springframework.cloud.netflix.sidecar.EnableSidecar;
 public class SidecarApplication {
 
 	public static void main(String[] args) {
-		HystrixCommandProperties.Setter()
-				.withExecutionTimeoutInMilliseconds(60000);
 		SpringApplication.run(SidecarApplication.class, args);
 	}
 }
