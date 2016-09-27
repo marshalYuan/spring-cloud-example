@@ -60,9 +60,9 @@ app.get('/books', (req, res, next) => {
     res.json(books.filter((book)=>book.authorId == uid))
 })
 
-app.get('/redis', (req, res) => {
-    services.getConfig('redis').then((redisConf) => {
-        res.json(redisConf)
+app.get('/config', (req, res) => {
+    services.getConfig('user-service').then((config) => {
+        res.json(config)
     }).catch((e)=> next(e))
 })
 
