@@ -55,9 +55,15 @@ app.get('/book/:bookId/author', (req, res, next) => {
     }
 })
 
-app.get('/books', (req, res) => {
+app.get('/books', (req, res, next) => {
     const uid = req.query.uid
     res.json(books.filter((book)=>book.authorId == uid))
+})
+
+app.get('/redis', (req, res) => {
+    services.getConfig('redis').then((redisConf) => {
+        res.json(redisConf)
+    }).catch((e)=> next(e))
 })
 
 app.use((error, req, res, next) => {
