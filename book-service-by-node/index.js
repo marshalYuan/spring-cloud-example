@@ -21,7 +21,7 @@ while (count > 0) {
     count --
 }
 
-app.use(logger('dev'))
+app.use(logger('combined'))
 
 app.get('/health', (req, res) => {
     res.json({

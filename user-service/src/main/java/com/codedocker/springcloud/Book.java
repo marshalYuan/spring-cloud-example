@@ -3,8 +3,6 @@ package com.codedocker.springcloud;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by marshal on 16/9/27.
@@ -13,7 +11,7 @@ class Book {
     private Long id;
     private Long authorId;
     private String name;
-    private Date publishDate;
+    private String publishDate;
     private String des;
     private String ISBN;
 
@@ -41,21 +39,12 @@ class Book {
         this.name = name;
     }
 
-    public Date getPublishDate() {
+    public String getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
-    }
-
-    public void setPublishDate(String date) {
-        DateFormat format = new SimpleDateFormat("M/d/yyyy, hh:mm:ss", Locale.CHINESE);
-        try {
-            this.publishDate = format.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getDes() {

@@ -54,13 +54,10 @@ public class UserController {
     }
 
     @GetMapping("/author/{id}")
-    public Author getMyBooks(@PathVariable Long id) {
+    public Author getAuthor(@PathVariable Long id) {
         List<Book> books = bookFeignClient.findByUid(id);
-        User user = users.get(id);
+        User user = findById(id);
         Author author = new Author();
-        if (user == null) {
-            return author;
-        }
         author.setId(user.getId());
         author.setUsername(user.getUsername());
         author.setAge(user.getAge());
