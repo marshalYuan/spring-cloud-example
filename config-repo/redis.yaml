@@ -1,0 +1,10 @@
+redis:
+  - host: 127.0.0.1
+    port: 6379
+    username:
+    password:
+  - host: 192.168.1.27
+    port: 6379
+    username: admin
+    password: hello-redis
+
