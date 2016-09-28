@@ -4,7 +4,7 @@ const SIDECAR = {
     uri: 'http://localhost:8741'
 }
 
-const USER_SERVICE = 'user-server'
+const USER_SERVICE = 'user-service'
 const CONFIG_SERVER = 'config-server'
 
 exports.getConfigServerInfo = () => fetch(`${SIDECAR.uri}/hosts/${CONFIG_SERVER}`).then((resp)=>resp.json())
