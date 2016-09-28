@@ -274,7 +274,7 @@ app.get('/books', (req, res, next) => {
 })
 ```
 
-我们访问下[http://localhost:3000/book/2/author](http://localhost:3000/book/2/author),可以看到返回了bookId为2的作者信息。但是这里有一个问题，我们并不能像代理到user-service那样通过访问[http://localhost:8741/node-sidecar/book/1]来访问Node.js的接口，那么怎么让user-service拿到book-service的数据呢？看下最开始的理论知识部分，我们可以通过访问`/hosts/<serviceId>`获取到各个服务的相关信息，我们来试下访问[http://localhost:8741/hosts/node-sidecar](http://localhost:8741/hosts/node-sidecar)得到如下结果：
+我们访问下[http://localhost:3000/book/2/author](http://localhost:3000/book/2/author),可以看到返回了bookId为2的作者信息。但是这里有一个问题，我们并不能像代理到user-service那样通过访问[http://localhost:8741/node-sidecar/book/1](http://localhost:8741/node-sidecar/book/1)来访问Node.js的接口，那么怎么让user-service拿到book-service的数据呢？看下最开始的理论知识部分，我们可以通过访问`/hosts/<serviceId>`获取到各个服务的相关信息，我们来试下访问[http://localhost:8741/hosts/node-sidecar](http://localhost:8741/hosts/node-sidecar)得到如下结果：
 ![屏幕快照 2016-09-28 下午2.30.23](http://cdn.codedocker.com/2016-09-28-屏幕快照 2016-09-28 下午2.30.23.png)
 
 可以看到返回信息里有Node.js应用的uri等信息，那么是不是我们可以先访问下sidecar的这个接口，拿到真实的uri之后，再来调用book-service的`/books?uid=<uid>`接口呢？当然可以，事实上spring cloud中已经有工具帮我们做这个事情，就是`Feign`，新建`BookFeighClient.java`：
@@ -347,7 +347,7 @@ public Author getAuthor(@PathVariable Long id) {
 还有一个说法叫"拥抱语言红利"，选择一种开发语言就代表选择一种编程思想已经这门开发语言对应的工具和库。比如现在很流行用Python做数据分析，那么微服务系统中这一部分的业务是不是可以用Python开发啊；Node.js的异步事件事件驱动机制很优秀，能不能用它来开发一些需要处理大量异步请求的服务啊；诸如此类。这里确实不是在引发"最优语言圣战"哈，私以为脱离了使用场景和生态来进行语言优劣的比较就是耍流氓。就拿计算100以内的所有[勾股数](http://baike.baidu.com/view/148142.htm)为例，我不觉得有什么语言能像Haskell的代码这样简洁易懂：
 
 ```
-[ x,y,z | x <- [1..100], y <- [x..100], z <- [x..100], x*x + y*y == z*z ]
+[ (x,y,z) | x <- [1..100], y <- [x..100], z <- [x..100], x*x + y*y == z*z ]
 ```
 再说了，我们标题中选的是Node.js，最好的语言明明是PHP啊！逃~~~
 
