@@ -98,7 +98,7 @@ info:
 ```
 所以将Node.js应用通过Sidecar接入Spring Cloud微服务集群的整体架构，大致就如下图:
 
-![屏幕快照 2016-09-27 下午9.11.17](http://cdn.codedocker.com/2016-09-27-屏幕快照 2016-09-27 下午9.11.17.png)
+![屏幕快照 2016-09-27 下午9.11.17](http://cdn.codedocker.com/2016-09-27-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-27%20%E4%B8%8B%E5%8D%889.11.17.png)
 
 
 ## demo实践
@@ -188,7 +188,7 @@ app.get('/book/:id', (req, res, next) => {
 也是先用[faker](https://github.com/marak/Faker.js/)来mock100条数据,然后写一条简单的get路由。
 
 启动后，我们用浏览器访问下[http://localhost:3000/book/1](http://localhost:3000/book/1)
-![屏幕快照 2016-09-28 上午11.56.53](http://cdn.codedocker.com/2016-09-28-屏幕快照 2016-09-28 上午11.56.53.png)
+![屏幕快照 2016-09-28 上午11.56.53](http://cdn.codedocker.com/2016-09-28-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-28%20%E4%B8%8A%E5%8D%8811.56.53.png)
 
 现在我们已经有了两个微服务，接下来我们启动一个Sidecar实例，用于将Node.js接入Spring Cloud。
 
@@ -227,10 +227,10 @@ hystrix:
 这里指定了sidecar所指向的node.js服务的地址,`hystrix.command.default.execution.timeout.enabled: false`主要是因为sidecar使用了hystrix的默认为一秒的超时熔断器，国内访问github的速度你懂的，我在测试时访问config-server经常超时，所以我就把它跟disable掉了，你也可以选择把超时时间配长一点。
 
 将eureka-server，config-server，user-service，node-sidecar, node-book-service都启动后，我们打开eureka的主页面[http://localhost:8700/](http://localhost:8700/)：
-![屏幕快照 2016-09-28 下午12.12.34](http://cdn.codedocker.com/2016-09-28-屏幕快照 2016-09-28 下午12.12.34.png)
+![屏幕快照 2016-09-28 下午12.12.34](http://cdn.codedocker.com/2016-09-28-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-28%20%E4%B8%8B%E5%8D%8812.12.34.png)
 
 看到我们的服务都处于UP状态，说明一切正常。接下来在看看Node.js应用的控制台：
-![屏幕快照 2016-09-28 下午12.15.00](http://cdn.codedocker.com/2016-09-28-屏幕快照 2016-09-28 下午12.15.00.png)
+![屏幕快照 2016-09-28 下午12.15.00](http://cdn.codedocker.com/2016-09-28-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-28%20%E4%B8%8B%E5%8D%8812.15.00.png)
 发现已经有流量打进来了，访问的接口是`/health`，很明显这就是node-sidecar对我们的node应用进行健康检查的调用。
 
 接下来就是见证奇迹的时刻了，我们curl访问sidecar的8741端口:
@@ -275,7 +275,7 @@ app.get('/books', (req, res, next) => {
 ```
 
 我们访问下[http://localhost:3000/book/2/author](http://localhost:3000/book/2/author),可以看到返回了bookId为2的作者信息。但是这里有一个问题，我们并不能像代理到user-service那样通过访问[http://localhost:8741/node-sidecar/book/1](http://localhost:8741/node-sidecar/book/1)来访问Node.js的接口，那么怎么让user-service拿到book-service的数据呢？看下最开始的理论知识部分，我们可以通过访问`/hosts/<serviceId>`获取到各个服务的相关信息，我们来试下访问[http://localhost:8741/hosts/node-sidecar](http://localhost:8741/hosts/node-sidecar)得到如下结果：
-![屏幕快照 2016-09-28 下午2.30.23](http://cdn.codedocker.com/2016-09-28-屏幕快照 2016-09-28 下午2.30.23.png)
+![屏幕快照 2016-09-28 下午2.30.23](http://cdn.codedocker.com/2016-09-28-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-28%20%E4%B8%8B%E5%8D%882.30.23.png)
 
 可以看到返回信息里有Node.js应用的uri等信息，那么是不是我们可以先访问下sidecar的这个接口，拿到真实的uri之后，再来调用book-service的`/books?uid=<uid>`接口呢？当然可以，事实上spring cloud中已经有工具帮我们做这个事情，就是`Feign`，新建`BookFeighClient.java`：
 
@@ -314,7 +314,7 @@ public Author getAuthor(@PathVariable Long id) {
 逻辑也很简单，获取对应user，根据uid从bookFeignClient获取books，然后构建author返回。
 
 我们访问下[http://localhost:8720/author/11](http://localhost:8720/author/11)看下返回结果：
-![屏幕快照 2016-09-28 下午3.58.12](http://cdn.codedocker.com/2016-09-28-屏幕快照 2016-09-28 下午3.58.12.png)
+![屏幕快照 2016-09-28 下午3.58.12](http://cdn.codedocker.com/2016-09-28-%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202016-09-28%20%E4%B8%8B%E5%8D%883.58.12.png)
 需要注意由于是随机数据，可能需要换几个authorId才能看到这样的结果。
 
 好了，到现在为止，我们已经完成了JAVA和Node.js两种语言借助sidecar和通用的http协议完成互相调用的全过程。关于更多的类似从config-server获取配置信息，从Eureka获取应用信息等操作，可以去下载我实验用的源码来了解。
